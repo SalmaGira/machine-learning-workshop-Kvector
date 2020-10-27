@@ -47,7 +47,7 @@ def Gradiantdescent(X, initial_theta):
     theta = initial_theta
     jvec = [] #all cost functions
     thetahistory = [] #theta history
-    for i in range(iterations):
+    for _ in range(iterations):
         tmptheta = theta
         jvec.append(computeCost(theta,X,y))
 
