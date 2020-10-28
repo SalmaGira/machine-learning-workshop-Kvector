@@ -89,6 +89,8 @@ plt.xlabel('Population of City in 10,000s')
 plt.legend()
 plt.show()
 
+#plotting 3D
+
 #Import necessary matplotlib tools for 3d plots
 from mpl_toolkits.mplot3d import axes3d, Axes3D
 from matplotlib import cm
@@ -100,16 +102,16 @@ ax = fig.gca(projection='3d')
 xvals = np.arange(-10,10,.5)
 yvals = np.arange(-1,4,.1)
 myxs, myys, myzs = [], [], []
-for david in xvals:
-    for kaleko in yvals:
-        myxs.append(david)
-        myys.append(kaleko)
-        myzs.append(computeCost(np.array([[david], [kaleko]]),X,y))
+for a in xvals:
+    for b in yvals:
+        myxs.append(a)
+        myys.append(b)
+        myzs.append( computeCost(np.array([[a], [b]]),X,y) )
 
 scat = ax.scatter(myxs,myys,myzs,c=np.abs(myzs),cmap=plt.get_cmap('YlOrRd'))
 
 plt.xlabel(r'$\theta_0$',fontsize=30)
 plt.ylabel(r'$\theta_1$',fontsize=30)
 plt.title('Cost (Minimization Path Shown in Blue)',fontsize=30)
-plt.plot([x[0] for x in thetahistory],[x[1] for x in thetahistory],jvec,'bo-')
+plt.plot( [x[0] for x in thetahistory] , [x[1] for x in thetahistory] , jvec , 'bo-' )
 plt.show()
