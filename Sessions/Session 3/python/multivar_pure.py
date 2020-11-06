@@ -6,15 +6,15 @@ def h(theta, X):
     return np.sum(theta * X, axis=1)
 
 def J(theta, X, Y):
-    sigma = np.sum((h(theta, X) - Y)**2)
+    HX = h(theta, X)
+    sigma = np.sum((HX - Y)**2)
     return sigma/(2*Y.size)
 
 def grad (theta, alpha, X, Y):
-    new_theta = np.empty(X[0].size)
-    for j in range(X[0].size):
-        sigma = np.sum((h(theta, X) - Y) * X[:,j], axis=0)
-        new_theta[j] = theta[j] - (alpha/Y.size) * sigma
-    return new_theta
+    HX = h(theta, X)
+    sigma = np.sum(X.transpose()*(HX - Y), axis=1)
+    theta = theta - (alpha/Y.size) * sigma
+    return theta
 
 if __name__ == "__main__":
     
