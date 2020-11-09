@@ -10,6 +10,7 @@ y = np.transpose(np.array(cols[-1:]))
 #Insert the usual column of 1's into the "X" matrix
 X = np.insert(X,0,1,axis=1)
 
+#plot data
 plt.figure(figsize=(10,6))
 plt.plot(X[:,1],y[:,0],'rx',markersize=10)
 plt.grid(True) #Always plot.grid true!
@@ -24,7 +25,7 @@ def h2(theta,X):
         arr[i][0] = theta[0][0]*X[i][0] + theta[1][0]*X[i][1]
     print(arr)
 
-#hypothesis function vicorized
+#hypothesis function victorized
 def h(theta,X):
     return np.dot(X,theta)
 
@@ -40,13 +41,13 @@ initial_theta = np.zeros((X.shape[1],1))
 print( computeCost(initial_theta,X,y) )
 
 #Gradiant Descent
-iterations = 1500
+iterations = 1500   #number of iterations
 alpha = 0.01
 def Gradiantdescent(X, initial_theta):
     m = y.size
     theta = initial_theta
-    jvec = [] #all cost functions
-    thetahistory = [] #theta history
+    jvec = []               #all cost functions
+    thetahistory = []       #theta history
     for _ in range(iterations):
         tmptheta = theta
         jvec.append(computeCost(theta,X,y))
@@ -62,6 +63,7 @@ def Gradiantdescent(X, initial_theta):
 initial_theta = np.zeros((X.shape[1],1))
 theta, thetahistory, jvec = Gradiantdescent(X,initial_theta)
 
+#plot convergence of cost function
 def plotConvergence(jvec):
     plt.figure(figsize=(10,6))
     plt.plot( range(len(jvec)) ,jvec,'bo')
@@ -89,8 +91,8 @@ plt.xlabel('Population of City in 10,000s')
 plt.legend()
 plt.show()
 
+#--------------------------------------------------------
 #plotting 3D
-
 #Import necessary matplotlib tools for 3d plots
 from mpl_toolkits.mplot3d import axes3d, Axes3D
 from matplotlib import cm
@@ -115,3 +117,4 @@ plt.ylabel(r'$\theta_1$',fontsize=30)
 plt.title('Cost (Minimization Path Shown in Blue)',fontsize=30)
 plt.plot( [x[0] for x in thetahistory] , [x[1] for x in thetahistory] , jvec , 'bo-' )
 plt.show()
+#--------------------------------------------------------
