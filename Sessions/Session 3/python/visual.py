@@ -41,6 +41,6 @@ if __name__ == "__main__":
         print('iteration #{}: J = {} , theta = {}'.format(i+1, J(theta, features, values), theta))
         ##mods
         plt.plot(features[:,1],features[:,1]*theta[1]+theta[0])
-        plt.pause(0.01)
+        plt.pause(0.05)
         ##end
     plt.show()

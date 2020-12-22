@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 
@@ -19,10 +20,12 @@ def grad (theta, alpha, X, Y):
 if __name__ == "__main__":
     
     file_name = input('file_name = ')
-    kc = np.genfromtxt('./data/'+file_name+'.csv', delimiter = ',')
     
-    #deleting coloumns' name
-    kc = np.delete(kc, 0, axis=0)
+    #loading the csv into a dataframe
+    df = pd.read_csv('./data/'+file_name)
+    
+    #converting to a numpy matrix
+    kc = np.array(df)
     
     #features = X
     features = kc[:,0:-1]
