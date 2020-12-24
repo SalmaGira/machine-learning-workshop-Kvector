@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 
 def h(theta, X):
@@ -14,8 +13,7 @@ def J(theta, X, Y):
 def grad (theta, alpha, X, Y):
     HX = h(theta, X)
     sigma = np.sum(X.transpose()*(HX - Y), axis=1)
-    theta = theta - (alpha/Y.size) * sigma
-    return theta
+    return (alpha/Y.size) * sigma
 
 if __name__ == "__main__":
     
@@ -33,18 +31,19 @@ if __name__ == "__main__":
     values = kc[:,-1]
     
     #applying feature scaling
-    features = (features-features.mean())/(features.max()-features.min())
+    features = (features-features.mean(axis=0))/(features.max(axis=0)-features.min(axis=0))
     
     #inserting 1s for Xo
     features = np.insert(features, 0, 1, axis=1)
-    
+
     #initialzing theta
     theta = np.zeros(features[0].size)
     
     iterations = int(input("num_of_iterations = "))
     alpha = float(input("alpha = "))
     
+    print('iteration #{}: J = {} , theta = {}'.format(0, J(theta, features, values), theta))
     #iterating to change theta
     for i in range(iterations):
-        theta = grad(theta, alpha, features, values)
+        theta -= grad(theta, alpha, features, values)
         print('iteration #{}: J = {} , theta = {}'.format(i+1, J(theta, features, values), theta))

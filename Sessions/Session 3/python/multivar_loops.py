@@ -1,10 +1,10 @@
 import numpy as np
 
 def h(theta, X):
-    n = X.size + 1
+    n = X.size
     hy = 0
-    for i in range(n):
-        hy += theta[i]*X[i]
+    for j in range(n):
+        hy += theta[j]*X[j]
     return hy
 
 def J(theta, X, Y):
@@ -16,7 +16,7 @@ def J(theta, X, Y):
 
 def grad (theta, alpha, X, Y):
     m = Y.size # number of rows = number of data samples
-    n = X[0].size + 1 # number of feautres + 1 // 1 => theta(zero)
+    n = X[0].size # number of feautres
     new_theta = np.empty(n)
     for j in range(n):
         sigma = 0
@@ -27,28 +27,24 @@ def grad (theta, alpha, X, Y):
 
 if __name__ == "__main__":
     
-    file_name = input('file_name = ')
-    kc = np.genfromtxt('./data/'+file_name+'.csv', delimiter = ',')
-    kc = np.delete(kc, 0, axis = 0)
+    file_name = input('file_name = ') # getting file name
+    kc = np.genfromtxt('./data/'+file_name, delimiter = ',') # loading the file into a numpy 2D array
+    kc = np.delete(kc, 0, axis = 0) # deleting the labels row
     
-    features = kc[:,0:-1]  #unscaled features
-    values = kc[:,-1]
+    features = kc[:,0:-1] # unscaled features
+    values = kc[:,-1] # true output
     
-    features = np.insert(features, 0, 1, axis=1)
+    features = (features-features.mean(axis=0))/(features.max(axis=0)-features.min(axis=0))  #features scaled
+    features = np.insert(features, 0, 1, axis=1) # for xo
     
-    theta = np.ones(features[0].size + 1)
+    theta = np.zeros(features[0].size) # array of thetas
 
     iterations = int(input("num_of_iterations = "))
     alpha = float(input("alpha = "))
 
+    print('iteration #{}: J = {} , theta = {}'.format(0, J(theta, features, values), theta)) # error of the intial theta
+
+    # iterating over updates
     for i in range(iterations):
         theta = grad(theta, alpha, features, values)
-        print('iteration #{}: J = {} , theta = {}'.format(i+1, J(theta, features, values), theta))
-    
-    
-    
-    
-    
-    
-    
-    #features = (kc[:,0:-1]-kc[:,0:-1].mean(axis=0))/(kc[:,0:-1].max(axis=0)-kc[:,0:-1].min(axis=0))  #features scaled
+        print('iteration #{}: J = {} , theta = {}'.format(i+1, J(theta, features, values), theta)) # error per every update
