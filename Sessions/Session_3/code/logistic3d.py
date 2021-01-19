@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def h(theta, X):
     #return np.sum(theta * X, axis=1) # hypothesis function used for linear regression
-    return 1 / ( 1 + np.e**(-1 * np.sum(theta * features,axis=1))) # hypothesis function used for logistic regression
+    return 1 / ( 1 + np.e**(-1 * np.sum(theta * X,axis=1))) # hypothesis function used for logistic regression
 
 def J(theta, X, Y):
     HX = h(theta, X)
@@ -18,7 +18,7 @@ def grad (theta, alpha, X, Y):
     sigma = np.sum(X.transpose()*(HX - Y), axis=1)
     return (alpha/Y.size)*sigma
 
-if __name__ == "__main__":
+def main():
     
     file_name = 'class.csv'#input('file_name = ')
     
@@ -30,14 +30,13 @@ if __name__ == "__main__":
     kc = np.array(df)
     
     # features = X
-    features = kc[:,0:1]#remember this is only one feature
+    features = kc[:,0:-1]
     # values = Y
     values = kc[:,-1]
     
-    # intended for one var
-    # plt.scatter(poss.iloc[:,0],np.ones(shape=poss.shape[0]),color='red')
-    # plt.scatter(neg.iloc[:,0],np.zeros(shape=neg.shape[0]),color='blue')
-    # plt.show()
+    plt.scatter(poss.iloc[:,0],poss.iloc[:,1],color='red')
+    plt.scatter(neg.iloc[:,0],neg.iloc[:,1],color='blue')
+    plt.show()
     
     # applying feature scaling
     maxmin = features.max(axis=0)-features.min(axis=0)
@@ -56,15 +55,15 @@ if __name__ == "__main__":
     for i in range(iterations):
         print('iteration #{}: J = {} , theta = {}'.format(i, J(theta, features, values), theta))
         theta -= grad(theta, alpha, features, values)
+        
+    original = [
+                theta[0]-theta[1]*mean[0]/maxmin[0]-theta[2]*mean[1]/maxmin[1]
+                 ,theta[1]/maxmin[0]
+                 ,theta[2]/maxmin[1]
+                 ]
+    
+    print(original)
     
     
-    origtzero = theta[0]-theta[1]*mean[0]/maxmin[0]
-    origtone = theta[1]/maxmin[0]
-    print(origtzero,origtone)
-    
-    plt.plot(np.linspace(30,100),np.linspace(30,100)*origtone+origtzero,color='green')
-    
-    plt.scatter(poss.iloc[:,0],np.ones(shape=poss.shape[0]),color='red')
-    plt.scatter(neg.iloc[:,0],np.zeros(shape=neg.shape[0]),color='blue')
-    plt.show()
-    
+
+main()
