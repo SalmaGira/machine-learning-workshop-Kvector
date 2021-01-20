@@ -53,8 +53,11 @@ def main():
     
     # iterating to change theta
     for i in range(iterations):
-        print('iteration #{}: J = {} , theta = {}'.format(i, J(theta, features, values), theta))
-        theta -= grad(theta, alpha, features, values)
+        try:
+            print('iteration #{}: J = {} , theta = {}'.format(i, J(theta, features, values), theta))
+            theta -= grad(theta, alpha, features, values)
+        except:
+            break
         
     original = [
                 theta[0]-theta[1]*mean[0]/maxmin[0]-theta[2]*mean[1]/maxmin[1]
@@ -64,11 +67,15 @@ def main():
     
     print(original)
     Xintercept = [0,-original[0]/original[1]]
-    Yintercept = [-original[0]/original[1],0]
+    Yintercept = [-original[0]/original[2],0]
     
-    plt.scatter(poss.iloc[:,0],poss.iloc[:,1],color='red')
-    plt.scatter(neg.iloc[:,0],neg.iloc[:,1],color='blue')
-    plt.plot(Xintercept,Yintercept,color='green')
+    plt.scatter(poss.iloc[:,0],poss.iloc[:,1],color='red',label='positive')
+    plt.scatter(neg.iloc[:,0],neg.iloc[:,1],color='blue',label='negative')
+    plt.plot(Xintercept,Yintercept,color='black',label='h(x)=0')
+    
+    #plt.legend(['h(x)=0','positive','negative'])
+    plt.legend()
+    
     plt.show()
     
 
