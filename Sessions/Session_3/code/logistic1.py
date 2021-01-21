@@ -35,9 +35,9 @@ if __name__ == "__main__":
     values = kc[:,-1]
     
     # intended for one var
-    # plt.scatter(poss.iloc[:,0],np.ones(shape=poss.shape[0]),color='red')
-    # plt.scatter(neg.iloc[:,0],np.zeros(shape=neg.shape[0]),color='blue')
-    # plt.show()
+    plt.scatter(poss.iloc[:,0],np.ones(shape=poss.shape[0]),color='red')
+    plt.scatter(neg.iloc[:,0],np.zeros(shape=neg.shape[0]),color='blue')
+    plt.show()
     
     # applying feature scaling
     maxmin = features.max(axis=0)-features.min(axis=0)
@@ -60,7 +60,6 @@ if __name__ == "__main__":
         except:
             break
     
-    
     origianl = [
         theta[0]-theta[1]*mean[0]/maxmin[0]
         ,theta[1]/maxmin[0]
@@ -73,7 +72,7 @@ if __name__ == "__main__":
     yline = xs*origianl[1]+origianl[0]
     yhypo = 1/(1+np.e**(-xs*[origianl[1]]-origianl[0]))
     
-    plt.plot(xs,yline,color='green',label='old_h(x)=sigma(theta*x)')
+    #plt.plot(xs,yline,color='green',label='old_h(x)=sigma(theta*x)')
     plt.plot(xs,yhypo,color='black',label='new_h(x)=g(z)')
     plt.scatter(-origianl[0]/origianl[1],0,color='gray',label='intercept')
     
