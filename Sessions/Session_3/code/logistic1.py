@@ -24,7 +24,7 @@ if __name__ == "__main__":
     
     # loading the csv into a dataframe
     df = pd.read_csv('./data/'+file_name)
-    poss = df.loc[df['admission']==1]
+    pos = df.loc[df['admission']==1]
     neg = df.loc[df['admission']==0]
     # converting to a numpy matrix
     kc = np.array(df)
@@ -35,8 +35,9 @@ if __name__ == "__main__":
     values = kc[:,-1]
     
     # intended for one var
-    plt.scatter(poss.iloc[:,0],np.ones(shape=poss.shape[0]),color='red')
-    plt.scatter(neg.iloc[:,0],np.zeros(shape=neg.shape[0]),color='blue')
+    plt.scatter(pos.iloc[:,0],np.ones(shape=pos.shape[0]),color='red',label='positive')
+    plt.scatter(neg.iloc[:,0],np.zeros(shape=neg.shape[0]),color='blue',label='negative')
+    plt.legend()
     plt.show()
     
     # applying feature scaling
@@ -76,7 +77,7 @@ if __name__ == "__main__":
     plt.plot(xs,yhypo,color='black',label='new_h(x)=g(z)')
     plt.scatter(-origianl[0]/origianl[1],0,color='gray',label='intercept')
     
-    plt.scatter(poss.iloc[:,0],np.ones(shape=poss.shape[0]),color='red',label='positive')
+    plt.scatter(pos.iloc[:,0],np.ones(shape=pos.shape[0]),color='red',label='positive')
     plt.scatter(neg.iloc[:,0],np.zeros(shape=neg.shape[0]),color='blue',label='negative')
     # also try adding outliers
     plt.legend()

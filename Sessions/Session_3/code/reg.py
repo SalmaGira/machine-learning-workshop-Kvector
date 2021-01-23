@@ -26,7 +26,7 @@ def main():
     
     # loading the csv into a dataframe
     df = pd.read_csv('./data/'+file_name)
-    poss = df.loc[df['admission']==1]
+    pos = df.loc[df['admission']==1]
     neg = df.loc[df['admission']==0]
     # converting to a numpy matrix
     kc = np.array(df)
@@ -36,7 +36,7 @@ def main():
     # values = Y
     values = kc[:,-1]
     
-    plt.scatter(poss.iloc[:,0],poss.iloc[:,1],color='red')
+    plt.scatter(pos.iloc[:,0],pos.iloc[:,1],color='red')
     plt.scatter(neg.iloc[:,0],neg.iloc[:,1],color='blue')
     #plt.show()
     

@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-df = pd.read_csv('data/class.csv')
+df = pd.read_csv('class.csv')
 
 
 df['test1^2'] = df['test1']**2
