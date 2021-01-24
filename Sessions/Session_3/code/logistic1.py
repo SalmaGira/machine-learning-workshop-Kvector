@@ -30,7 +30,7 @@ if __name__ == "__main__":
     kc = np.array(df)
     
     # features = X
-    features = kc[:,0:1]#remember this is only one feature
+    features = kc[:,[0]]#remember this is only one feature
     # values = Y
     values = kc[:,-1]
     
@@ -60,6 +60,8 @@ if __name__ == "__main__":
             theta -= grad(theta, alpha, features, values)
         except:
             break
+    
+    
     
     origianl = [
         theta[0]-theta[1]*mean[0]/maxmin[0]
