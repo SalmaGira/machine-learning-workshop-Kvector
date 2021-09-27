@@ -1,0 +1,52 @@
+import random
+
+
+def get():
+    
+    secret = input("Enter Your Word: ").lower()
+    if secret == "kvector" :
+        return 1
+    
+    secret = input("Enter Your Word: ").lower()
+    if secret == "kvector" :
+        return 1
+    
+    secret = input("Enter Your Word: ").lower()
+    if secret == "kvector":
+        return 1
+   
+    return 0
+
+
+while True :
+    if get() == 0:
+        print("Oh! You Lost")
+        break
+    
+    lower_b = int(input("Enter a Lower Boundary to guess: "))
+    upper_b = int(input("Enter an upper Boundary to guess: "))
+    
+    goal = random.randint(lower_b,upper_b)
+    history = []
+    
+    while True:
+        n = int(input("Please enter a number: "))
+        if n == goal:
+            break
+        
+        history.append(n)
+        if n>goal:
+            print("You Entered a too large number")
+        elif n<goal:
+            print("You Entered a too small number")
+            
+            
+            
+
+    print(history)
+    cont = input("do you want to continue? y/n ")
+    if cont == "y":
+        continue
+    else :
+        print ("Thanks for playing!")
+        break
